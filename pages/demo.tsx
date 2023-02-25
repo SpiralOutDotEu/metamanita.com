@@ -132,10 +132,7 @@ export default function Mint() {
               // Form
               */}
               <form onSubmit={handleSubmit}>
-                <div className='hidden'>
-                  <input type="text" name="value" id="value" defaultValue={value} required={true} />
-                  <input type="text" name="proof" id="proof" defaultValue={proof} required={true} />
-                </div>
+ 
                 <div>
                   <input type="text"
                     name="address"
