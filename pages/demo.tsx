@@ -30,13 +30,32 @@ export default function Mint() {
 
   const [isMetamaskInstalled, setIsMetamaskInstalled] = useState<boolean>(false);
   const [ethereumAccount, setEthereumAccount] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false)
 
   useEffect(() => {
     if ((window as any).ethereum) {
       //check if Metamask wallet is installed
       setIsMetamaskInstalled(true);
     }
+    if (getDeviceType() === 'mobile') {
+      setIsMobile(true)
+    }
   }, []);
+
+  const getDeviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return "tablet";
+    }
+    if (
+      /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua
+      )
+    ) {
+      return "mobile";
+    }
+    return "desktop";
+  };
 
   async function connectMetamaskWallet(): Promise<void> {
     //to get around type checking
@@ -127,6 +146,16 @@ export default function Mint() {
                   </div>
                 }
               </div>
+              <div>
+                {isMobile === true &&
+                isMetamaskInstalled !== true &&
+                  <div className={styles.claim}>
+                    <Link href={"https://metamask.app.link/dapp/metamanita.com/demo?value=" + value +"&proof=" + proof} passHref={true}>
+                      <button>Connect with mobile wallet</button>
+                    </Link>
+                  </div>
+                }
+              </div>
               <h3 hidden={ethereumAccount !== null}>or Enter your Ethereum address to try: </h3>
               {/*  
               // Form
@@ -153,7 +182,7 @@ export default function Mint() {
                 </div>
                 <div className={styles.results}>
                   <div className={styles.error}>
-                    {error !== null && <>Oooops! it seems you don't know enough secrets! </>}
+                    {error !== null && <a>Oooops! it seems you don't know enough secrets! </a>}
                   </div>
                   {result !== null &&
                     <div> Submitted for minting!
