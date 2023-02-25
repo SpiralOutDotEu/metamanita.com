@@ -9,14 +9,6 @@ import { NextPage } from 'next';
 import axios from 'axios';
 import Link from 'next/link';
 
-// Wallet connect
-import { ethers } from "ethers";
-
-// const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-// ----
-
-
 const inter = Inter({ subsets: ['latin'] })
 
 interface Result {
@@ -30,8 +22,8 @@ export default function Mint() {
   const [result, setResult] = useState<string | null>(null);
 
   const { value, proof } = router.query;
-  const [tokenId, setTokenId] = useState(value?.split(",")[1] || "")
-  const [secret, setSecret] = useState(value?.split(",")[0] || "")
+  const [tokenId, setTokenId] = useState((value as string)?.split(",")[1] || "")
+  const [secret, setSecret] = useState((value as string)?.split(",")[0] || "")
   const [address, setAddress] = useState("")
   const [error, setError] = useState<any>(null)
   const [valid, setValid] = useState<boolean>(secret !== '' ? true : false)
