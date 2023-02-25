@@ -132,7 +132,7 @@ export default function Mint() {
               // Form
               */}
               <form onSubmit={handleSubmit}>
- 
+
                 <div>
                   <input type="text"
                     name="address"
@@ -152,6 +152,9 @@ export default function Mint() {
                   </button>
                 </div>
                 <div className={styles.results}>
+                  <div className={styles.error}>
+                    {error !== null && <>Oooops! it seems you don't know enough secrets! </>}
+                  </div>
                   {result !== null &&
                     <div> Submitted for minting!
                       <br></br>View the progress in
@@ -174,9 +177,7 @@ export default function Mint() {
             </div>
           </div>
         </div>
-        <div className={styles.error}>
-          {error !== null && <>Oooops! it seems you don't know enough secrets! </>}
-        </div>
+
         <div className='hidden'>
           <div className={styles.grid}>
             {secret !== null && <>You know a secret {secret}</>}
