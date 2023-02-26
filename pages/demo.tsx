@@ -40,7 +40,15 @@ export default function Mint() {
     if (getDeviceType() === 'mobile') {
       setIsMobile(true)
     }
+    
+    
   }, []);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    setSecret((value as string)?.split(",")[0])
+    setTokenId((value as string)?.split(",")[1])
+  }, [router.isReady, router.query]);
 
   const getDeviceType = () => {
     const ua = navigator.userAgent;
@@ -148,9 +156,9 @@ export default function Mint() {
               </div>
               <div>
                 {isMobile === true &&
-                isMetamaskInstalled !== true &&
+                  isMetamaskInstalled !== true &&
                   <div className={styles.claim}>
-                    <Link href={"https://metamask.app.link/dapp/metamanita.com/demo?value=" + value +"&proof=" + proof} passHref={true}>
+                    <Link href={"https://metamask.app.link/dapp/metamanita.com/demo?value=" + value + "&proof=" + proof} passHref={true}>
                       <button>Connect with mobile wallet</button>
                     </Link>
                   </div>
