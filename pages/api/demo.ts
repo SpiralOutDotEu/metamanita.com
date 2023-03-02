@@ -11,7 +11,7 @@ const provider = new DefenderRelayProvider(credentials);
 const signer = new DefenderRelaySigner(credentials, provider, { speed: 'fast' });
 
 
-const CONTRACT_ADDRESS = '0x16c50A6126d7fbbAF8aC7501729a5ad34030869e'
+const CONTRACT_ADDRESS = '0x67c03af9fdEca678Da66Bb4632E76C262cfD7C9c'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { value, proof, address } = req.query;
