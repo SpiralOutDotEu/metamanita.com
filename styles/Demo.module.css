@@ -60,6 +60,10 @@
 .error {
   color: red;
 }
+.results {
+  color: green;
+  bold: true;
+}
 
 /* Mobile */
 @media only screen and (max-width: 600px) {

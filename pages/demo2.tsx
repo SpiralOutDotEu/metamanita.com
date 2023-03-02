@@ -32,6 +32,8 @@ export default function Mint() {
     const [ethereumAccount, setEthereumAccount] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState<boolean>(false)
 
+    const CONTRACT_ADDRESS = '0x67c03af9fdEca678Da66Bb4632E76C262cfD7C9c'
+
     useEffect(() => {
         if ((window as any).ethereum) {
             //check if Metamask wallet is installed
@@ -131,7 +133,8 @@ export default function Mint() {
                                 <Link className={styles.hyperlink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={'https://testnets.opensea.io/assets/mumbai/0x16c50a6126d7fbbaf8ac7501729a5ad34030869e'}
+                                    href={'https://testnets.opensea.io/assets/mumbai/'
+                                        + CONTRACT_ADDRESS}
                                 > OpenSea
                                 </Link>.
                                 <Image
@@ -153,7 +156,10 @@ export default function Mint() {
                             {ethereumAccount === null &&
                                 !isMetamaskInstalled &&
                                 !isMobile &&
-                                <Link href={"https://metamask.app.link/dapp/metamanita.com/demo2?value=" + value + "&proof=" + proof} passHref={true}>
+                                <Link href={"https://metamask.app.link/dapp/metamanita.com/demo2?value="
+                                    + value + "&proof="
+                                    + proof}
+                                    passHref={true}>
                                     <button className="btn btn-primary">
                                         Install Metamask
                                     </button>
@@ -162,7 +168,10 @@ export default function Mint() {
                             {ethereumAccount === null &&
                                 !isMetamaskInstalled &&
                                 isMobile &&
-                                <Link href={"https://metamask.app.link/dapp/metamanita.com/demo2?value=" + value + "&proof=" + proof} passHref={true}>
+                                <Link href={"https://metamask.app.link/dapp/metamanita.com/demo2?value="
+                                    + value + "&proof="
+                                    + proof}
+                                    passHref={true}>
                                     <button className="btn btn-primary">
                                         Connect with Mobile Wallet
                                     </button>
@@ -183,18 +192,42 @@ export default function Mint() {
                                         pattern={'^0x[a-fA-F0-9]{40}$'}
                                         placeholder='0xYourEthereumAddress.....' />
                                     {result !== null &&
-                                        <div className='results'>
-                                            result {result}
+                                        <div className={styles.results}>
+                                            Συγχαρητήρια! Ενα NFT έρχεται στο πορτοφόλι σου!
+                                            <br></br>
+                                            Δες και αντάλλαξε το NFT σου στο
+                                            <Link className={styles.hyperlink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href={'https://testnets.opensea.io/assets/mumbai/'
+                                                    + CONTRACT_ADDRESS + '/'
+                                                    + tokenId}
+                                            > OpenSea
+                                            </Link>
+                                            <></> ή στο
+                                            <Link className={styles.hyperlink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href={'https://testnet.rarible.com/token/polygon/'
+                                                    + CONTRACT_ADDRESS + ':'
+                                                    + tokenId}
+                                            > Rarible
+                                            </Link>
+                                            {result}
                                         </div>
                                     }
                                     {error !== null &&
                                         <div className={styles.error}>
-                                            Ουπς! μάλλον δεν έχεις όλα τα κλειδιά για
+                                            Ουπς! μάλλον δεν έχεις ότι χρειάζεται.
+                                            <br></br>
+                                            Ψαξε να βρείς ένα άλλο μαγικό QR κλειδί...
                                             error: {error.code}
-                                            
+
                                         </div>
                                     }
                                     <button
+                                        hidden={result !== null}
+                                        disabled={!address}
                                         className='btn btn-primary'
                                         color="green"
                                         type='submit'>
